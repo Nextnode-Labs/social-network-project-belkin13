@@ -10,8 +10,8 @@
     padding:10px;
 }
 
-.dialogsItems .dialog {
-
+.dialogs .message {
+    color:#fff;
 }
 
 .dialogsItems .active {
