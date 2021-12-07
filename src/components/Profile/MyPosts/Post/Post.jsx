@@ -5,7 +5,7 @@ const Post = (props) => {
 
   return (
     <div className={s.item}>
-      <img src='https://www.freelogodesign.org/Content/img/logo-ex-7.png'/>
+      <img src='https://www.import.io/wp-content/uploads/2017/10/React-logo-300x140.png'/>
         { props.message }
           <div>
         <span>like</span> { props.likesCount }

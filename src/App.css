@@ -1,4 +1,4 @@
-.app-wrapper {
+.appwrapper {
   margin: 0 auto;
   display: grid;
   width: 1200px;
@@ -11,7 +11,12 @@
     /* grid-gap: 10px; */
 }
 
-.app-wrapper-content {
+.appwrappercontent {
   grid-area: c;
-  background-color: cornflowerblue;
+  background-color:cornflowerblue;
+}
+
+.footer {
+  background-color:cornflowerblue;
+  padding:20px;
 }
