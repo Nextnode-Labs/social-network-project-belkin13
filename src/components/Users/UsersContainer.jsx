@@ -55,6 +55,10 @@ let mapStateToProps = (state) => {
     }
 }
 
+
+
+
+
 /*let mapDispatchToProps = (dispatch) => {
     return {
         follow: (userId) => {          
