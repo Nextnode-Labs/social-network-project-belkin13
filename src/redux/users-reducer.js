@@ -72,4 +72,14 @@ export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_C
 export const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching });
 export const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId });
 
+const getUsers = (dispatch) => {
+    this.props.toggleIsFetching(true);
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {    
+        this.props.toggleIsFetching(false);
+        this.props.setUsers(data.items);
+        this.props.setTotalUsersCount(data.totalCount);
+    }); 
+}
+
+
 export default usersReducer;
