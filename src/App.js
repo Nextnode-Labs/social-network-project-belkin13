@@ -10,6 +10,8 @@ import Box from '@mui/material/Box';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import LoginPage from './components/Login/Login';
+
 
 const App = (props) => {
 
@@ -39,6 +41,7 @@ const App = (props) => {
               <Route path="/news" render={ () => <News /> } />
               <Route path="/music" render={ () => <Music /> } />
               <Route path="/settings" render={ () => <Settings /> } />
+              <Route path="/login" render={() => <LoginPage />} />
           </div>
         </Box>    
         <Box  sx={{ gridArea: 'footer', bgcolor: 'cornflowerblue' }}>React 2021</Box>
