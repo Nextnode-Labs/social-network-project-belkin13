@@ -3,6 +3,8 @@ import Users from './Users';
 import {connect} from 'react-redux';
 import { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers } from '../../redux/users-reducer';
 import Preloader from '../common/Preloader/Preloader';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class UsersContainer extends React.Component {//классовая компонента рендерящая Users и пробрасывающая внутрь пропсы из контейнерной
 
@@ -45,5 +47,10 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect (mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers } 
-) (UsersContainer);  //коннектим пробрасывая в контекст пропсы и диспатчи - в класс UsersContainer, который вызовет функциональную компоненту Users
+//export default connect (mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers } 
+//) (UsersContainer);  //коннектим пробрасывая в контекст пропсы и диспатчи - в класс UsersContainer, который вызовет функциональную компоненту Users
+
+export default compose(
+    connect (mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers }),
+    //withAuthRedirect,
+) (UsersContainer); 
