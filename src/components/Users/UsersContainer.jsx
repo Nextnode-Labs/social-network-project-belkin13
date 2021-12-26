@@ -1,32 +1,21 @@
 import React from 'react';
 import Users from './Users';
 import {connect} from 'react-redux';
-import { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setIsFetching, toggleFollowingProgress } from '../../redux/users-reducer';
+import { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers } from '../../redux/users-reducer';
 import Preloader from '../common/Preloader/Preloader';
-import { usersAPI } from '../../api/api';
 
-class UsersApiComponent extends React.Component {
+class UsersContainer extends React.Component {//классовая компонента рендерящая Users и пробрасывающая внутрь пропсы из контейнерной
 
     //constructor(props) {
         //super(props);        
     //}
 
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {    
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
-        });   
+       this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.toggleIsFetching(true);
-        this.props.setCurrentPage(pageNumber);
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {  
-            this.props.toggleIsFetching(false);     
-            this.props.setUsers(data.items);
-        });
+        this.props.getUsers(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -39,7 +28,7 @@ class UsersApiComponent extends React.Component {
                       users = {this.props.users}  
                       follow = {this.props.follow}
                       unfollow = {this.props.unfollow}
-                      toggleFollowingProgress = {this.props.toggleFollowingProgress}
+                      followingInProgress =  {this.props.followingInProgress}
         />
         </>
     }
@@ -52,41 +41,9 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
-        
+        followingInProgress: state.usersPage.followingInProgress,      
     }
 }
 
-
-
-
-
-/*let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {          
-            dispatch(followAC(userId));           
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowAC(userId));
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageAC(pageNumber));
-        },
-        setTotalUsersCount: (totalCount) => {
-            dispatch(setTotalUsersCountAC(totalCount));
-        },  
-        toggleIsFetching: (isFetching) => {
-            dispatch(setIsFetchingAC(isFetching));
-        } 
-    }
-}*/
-
-export default connect (mapStateToProps, 
-    { follow: follow, unfollow: unfollow, setUsers: setUsers,
-      setCurrentPage: setCurrentPage, setTotalUsersCount: setTotalUsersCount, toggleIsFetching: setIsFetching,
-      toggleFollowingProgress: toggleFollowingProgress,  
-        } 
-) (UsersApiComponent);
+export default connect (mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers } 
+) (UsersContainer);  //коннектим пробрасывая в контекст пропсы и диспатчи - в класс UsersContainer, который вызовет функциональную компоненту Users
