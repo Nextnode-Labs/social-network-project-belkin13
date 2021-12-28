@@ -1,7 +1,7 @@
-import { getThemeProps } from '@mui/system';
 import React from 'react';
 import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
 
@@ -16,6 +16,7 @@ const ProfileInfo = (props) => {
       </div>
       <div className={s.descriptionBlock}>
         ava + description
+        <ProfileStatus status='Hello my friends!'/>
       </div>
     </div>
   )
