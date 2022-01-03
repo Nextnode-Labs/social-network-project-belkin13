@@ -34,6 +34,22 @@ class ProfileStatus extends React.Component {
         })
     }
 
+    componentDidUpdate(prevProps, prevState) { // проверяем что пришел статус с серваа отличный от локального и фиксим его
+        //debugger;
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+
+
+        
+        let a = this.state;
+        let b = this.props;
+        console.log("123");
+    }
+
+
     render() {  
         return (
             <div>        
