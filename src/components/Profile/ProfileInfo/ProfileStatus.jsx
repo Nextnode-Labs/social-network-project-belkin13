@@ -46,7 +46,7 @@ class ProfileStatus extends React.Component {
         
         let a = this.state;
         let b = this.props;
-        console.log("123");
+        //console.log("123");
     }
 
 
