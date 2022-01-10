@@ -2,9 +2,11 @@ import React from "react";
 import { reduxForm, Field } from "redux-form";
 import { required } from "../../utils/validators/validators";
 import { Input } from "../common/FormsControls/FormsControls";
+import styles from "../common/FormsControls/FormsControls.module.css";
 import { connect } from "react-redux";
 import { login } from "../../redux/auth-reducer";
 import { Redirect } from "react-router-dom";
+
 
 const LoginForm = (props) => {
     //handleSubmit прокидывает redux-form
@@ -23,6 +25,9 @@ const LoginForm = (props) => {
             <div>
                 <Field component={Input} name={"rememberMe"} type={"checkbox"} /> remember me
             </div>
+            { props.error && <div className={styles.formSummaryError}>
+                { props.error }
+            </div>}
             <div>
                 <button>Login</button>
             </div>

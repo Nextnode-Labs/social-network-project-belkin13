@@ -14,6 +14,7 @@ const FormControl = ({input, meta, child, element, ...props}) => {
         </div>    
     )
 }
+
 //деструктуризация {input, meta, child, ...restProps}  ---- {...props}><textarea {...input} {...restProps}
 export const Textarea = (props) => {
     const {input, meta, child, ...restProps} = props;
