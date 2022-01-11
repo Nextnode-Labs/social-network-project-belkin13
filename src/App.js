@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import s from './App.css';
 import Navbar from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
@@ -11,11 +11,27 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/Login';
+import { initializeApp } from './redux/app-reducer';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
+import Preloader from './components/common/Preloader/Preloader';
+
+//const App = (props) => {
+class App extends Component {
+
+  componentDidMount() {
+    this.props.initializeApp();
+  }
+
+  render() {
+
+    if (!this.props.initialized) {
+        return <Preloader/>
+    }
 
 
-const App = (props) => {
-
-  return (
+    return (
       <Box
         sx={{
           display: 'grid',
@@ -46,7 +62,15 @@ const App = (props) => {
         </Box>    
         <Box  sx={{ gridArea: 'footer', bgcolor: 'cornflowerblue' }}>React 2021</Box>
       </Box>
- );
+    )
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  initialized: state.app.initialized
+})
+
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, {initializeApp})) (App);
