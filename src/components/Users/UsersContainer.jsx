@@ -1,10 +1,11 @@
 import React from 'react';
 import Users from './Users';
 import {connect} from 'react-redux';
-import { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers } from '../../redux/users-reducer';
+import { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsersRequest } from '../../redux/users-reducer';
 import Preloader from '../common/Preloader/Preloader';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+//import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors';
 
 class UsersContainer extends React.Component {//классовая компонента рендерящая Users и пробрасывающая внутрь пропсы из контейнерной
 
@@ -13,11 +14,11 @@ class UsersContainer extends React.Component {//классовая компон�
     //}
 
     componentDidMount() {
-       this.props.getUsers(this.props.currentPage, this.props.pageSize);
+       this.props.getUsersRequest(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.getUsersRequest(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -38,12 +39,12 @@ class UsersContainer extends React.Component {//классовая компон�
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,      
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),      
     }
 }
 
@@ -51,6 +52,6 @@ let mapStateToProps = (state) => {
 //) (UsersContainer);  //коннектим пробрасывая в контекст пропсы и диспатчи - в класс UsersContainer, который вызовет функциональную компоненту Users
 
 export default compose(
-    connect (mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers }),
+    connect (mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsersRequest }),
     //withAuthRedirect,
 ) (UsersContainer); 
