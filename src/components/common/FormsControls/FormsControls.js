@@ -2,15 +2,15 @@ import React from "react";
 import styles from "./FormsControls.module.css"
 import { reduxForm, Field } from "redux-form";
 
-const FormControl = ({input, meta, child, element, ...props}) => {
+const FormControl = ({input, meta: {touched, error}, child, element, ...props}) => {
     // {...props} - все пропсы передаем внутрь конечному потребителю
-    const hasError = meta.touched && meta.error;
+    const hasError = touched && error;
     return (
         <div className={styles.formControl + " " + (hasError ? styles.error : "") }>
             <div>
                {props.children}     
             </div>
-            { hasError && <span>{meta.error}</span> }
+            { hasError && <span>{error}</span> }
         </div>    
     )
 }
