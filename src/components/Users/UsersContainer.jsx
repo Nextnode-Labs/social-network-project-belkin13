@@ -14,11 +14,13 @@ class UsersContainer extends React.Component {//классовая компон�
     //}
 
     componentDidMount() {
-       this.props.getUsersRequest(this.props.currentPage, this.props.pageSize);
+       let {currentPage, pageSize} = this.props;
+       this.props.getUsersRequest(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.getUsersRequest(pageNumber, this.props.pageSize);
+        const {pageSize} = this.props;
+        this.props.getUsersRequest(pageNumber, pageSize);
     }
 
     render() {
