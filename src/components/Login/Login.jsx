@@ -36,7 +36,7 @@ const Login = (props) => {
     const onSubmit = (formData) => { // передадим данные из redux-form внутрь к нашей компоненте
 
         props.login(formData.email, formData.password, formData.rememberMe)
-        console.log(formData);
+        //console.log(formData);
     }
 
     if  (props.isAuth) {
