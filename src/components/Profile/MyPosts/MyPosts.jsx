@@ -37,7 +37,7 @@ const MyPosts = React.memo(props => {
     //return nextProps != this.props || nextState != this.state;
   //}
 
-  console.log("RENDER YOU");
+ // console.log("RENDER YOU");
  //render() {
     
     
@@ -45,7 +45,7 @@ const MyPosts = React.memo(props => {
       props.addPost(values.newPostText);
     }
 
-    let postsElements = props.posts.map( p => <Post message={p.message} likesCount={p.likesCount} key={p.id} />);
+    let postsElements = props.posts.map( p => <Post key={p.id} message={p.message} likesCount={p.likesCount} key={p.id} />);
 
     return (
       <div className={s.postsBlock}>
