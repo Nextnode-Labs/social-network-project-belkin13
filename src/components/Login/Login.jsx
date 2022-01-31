@@ -18,6 +18,8 @@ const LoginForm = ({handleSubmit, error, captchaUrl}) => {
             {createField(null, "rememberMe",[], Input, {type: "checkbox"}, "remember me")}
 
             {captchaUrl && <img src={captchaUrl} />}
+            {captchaUrl && createField("Symbols from image","captcha",[required], Input, {})};
+
 
             { error && <div className={styles.formSummaryError}>
                 { error }
@@ -37,7 +39,7 @@ const LoginReduxForm = reduxForm({
 const Login = (props) => {
     const onSubmit = (formData) => { // передадим данные из redux-form внутрь к нашей компоненте
 
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
         //console.log(formData);
     }
 
