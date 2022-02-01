@@ -5,7 +5,7 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import { Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
@@ -23,8 +23,19 @@ import store from './redux/redux-store';
 //const App = (props) => {
 class App extends Component {
 
+  catchAllUnhandledErrors = (promiseRejectionEvent) => {
+    alert("Some error occured");
+    //console.error(promiseRejectionEvent);
+  }
+
   componentDidMount() {
     this.props.initializeApp();
+    //window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+
+  }
+
+  componentWillUnmount() {
+   // window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
   }
 
   render() {
@@ -54,6 +65,9 @@ class App extends Component {
         </Box>
         <Box sx={{ gridArea: 'main', bgcolor: 'secondary.main' }}>
           <div className={s.appwrappercontent}> 
+            <Switch>
+              {/*<Route exact path="/" render={ () => <Redirect to={"/profile"} /> } />*/}
+              <Route exact path="/" render={ () => <Redirect from="/" to="/profile" /> } />
               <Route path="/dialogs" render={ () => <DialogsContainer /> } />
               <Route path="/profile/:userId?" render={ () => <ProfileContainer /> } />
               <Route path="/users" render={ () => <UsersContainer /> } />
@@ -61,6 +75,8 @@ class App extends Component {
               <Route path="/music" render={ () => <Music /> } />
               <Route path="/settings" render={ () => <Settings /> } />
               <Route path="/login" render={() => <LoginPage />} />
+              <Route path="*" render={() => <div>404 NOT FOUND</div> } />
+            </Switch>  
           </div>
         </Box>    
         <Box  sx={{ gridArea: 'footer', bgcolor: 'cornflowerblue' }}>React 2021</Box>
